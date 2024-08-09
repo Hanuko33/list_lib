@@ -26,13 +26,18 @@ void List_delete(struct List* list)
 {
     if (list->previous && list->next)
     {
-        list->previous->next = list->next;
-        list->next->previous = list->previous;
+        struct List * previous = list->previous;
+        struct List * next = list->next;
+        next->previous = previous;
+        previous->next = next;
     }
-    else if (list->previous)
+    else if (!list->next && list->previous)
         list->previous->next = NULL;
-    else if (list->next)
+    else if (!list->previous && list->next)
         list->next->previous = NULL;
+
+    list->next=NULL;
+    list->previous=NULL;
     free(list);
     list = NULL;
 }
@@ -109,7 +114,11 @@ struct List * List_next_search(struct List* list, void * var)
     struct List * current = list;
     for (int i = 0;; i++) 
     {
-        if (current->var == var)
+        if (!current)
+        {
+            return NULL;
+        }
+        if (current->var && current->var == var)
         {
             break;
         }
@@ -130,7 +139,11 @@ struct List * List_previous_search(struct List* list, void * var)
     struct List * current = list;
     for (int i = 0;; i++) 
     {
-        if (current->var == var)
+        if (!current)
+        {
+            return NULL;
+        }
+        if (current->var && current->var == var)
         {
             break;
         }
