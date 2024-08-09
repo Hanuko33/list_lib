@@ -63,4 +63,12 @@ int main()
         printf("5 = %ld\n", *(long *)(List_search(list, variable_3)->var));
         assert(5 == *(long *)(List_search(list, variable_3)->var));
     }
+    struct List * list2 = list->next;
+    List_delete(list);
+    list = NULL;
+    if (List_search(list2, variable_3))
+    {
+        printf("5 = %ld\n", *(long *)(List_search(list2, variable_3)->var));
+        assert(5 == *(long *)(List_search(list2, variable_3)->var));
+    }
 }
