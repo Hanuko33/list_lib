@@ -22,6 +22,21 @@ void List_new_next(struct List* list, void * var)
     list->next->var = var;
 }
 
+void List_delete(struct List* list)
+{
+    if (list->previous && list->next)
+    {
+        list->previous->next = list->next;
+        list->next->previous = list->previous;
+    }
+    else if (list->previous)
+        list->previous->next = NULL;
+    else if (list->next)
+        list->next->previous = NULL;
+    free(list);
+    list = NULL;
+}
+
 void List_append(struct List * list, void * var)
 {
     struct List * current = list;
@@ -37,6 +52,23 @@ void List_append(struct List * list, void * var)
     current->next->previous = current;
     current->next->var = var;
 }
+
+void List_append_left(struct List * list, void * var)
+{
+    struct List * current = list;
+    for (int i = 0;; i++)
+    {
+        if (current->previous)
+            current=current->previous;
+        else 
+            break;
+    }
+
+    current->previous = List_create();
+    current->previous->next = current;
+    current->previous->var = var;
+}
+
 
 struct List * List_next(struct List* list, int index)
 {

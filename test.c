@@ -45,7 +45,15 @@ int main()
     List_append(list, variable_3);
 
     if (List_search(list, variable_3))
+    {
         printf("5 = %ld\n", *(long *)(List_search(list, variable_3)->var));
         assert(5 == *(long *)(List_search(list, variable_3)->var));
+    }
 
+    List_delete(List_search(list, variable_2));
+    printf("Hello wor = %s\n", (const char *)list->var);
+    assert(!strcmp("Hello wor\0", (const char *)list->var));
+
+    printf("5 = %ld\n", *(long *)(list->next->var));
+    assert(5 == *(long *)(list->next->var));
 }
