@@ -4,9 +4,9 @@
 #include <string.h>
 #include "list.h"
 
-struct List * List_create()
+List * List_create()
 {
-    struct List * list = malloc(sizeof(struct List));
+    List * list = malloc(sizeof(List));
 
     list->var=NULL;
     list->next=NULL;
@@ -15,19 +15,19 @@ struct List * List_create()
     return list;
 }
 
-void List_new_next(struct List* list, void * var)
+void List_new_next(List* list, void * var)
 {
     list->next = List_create();
     list->next->previous = list;
     list->next->var = var;
 }
 
-void List_delete(struct List* list)
+void List_delete(List* list)
 {
     if (list->previous && list->next)
     {
-        struct List * previous = list->previous;
-        struct List * next = list->next;
+        List * previous = list->previous;
+        List * next = list->next;
         next->previous = previous;
         previous->next = next;
     }
@@ -42,9 +42,9 @@ void List_delete(struct List* list)
     list = NULL;
 }
 
-void List_append(struct List * list, void * var)
+void List_append(List * list, void * var)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0;; i++)
     {
         if (current->next)
@@ -58,9 +58,9 @@ void List_append(struct List * list, void * var)
     current->next->var = var;
 }
 
-void List_append_left(struct List * list, void * var)
+void List_append_left(List * list, void * var)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0;; i++)
     {
         if (current->previous)
@@ -75,9 +75,9 @@ void List_append_left(struct List * list, void * var)
 }
 
 
-struct List * List_next(struct List* list, int index)
+List * List_next(List* list, int index)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0; i < index; i++) 
     {
         if (current->next)
@@ -92,9 +92,9 @@ struct List * List_next(struct List* list, int index)
     return current;
 }
 
-struct List * List_previous(struct List* list, int index)
+List * List_previous(List* list, int index)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0; i < index; i++) 
     {
         if (current->previous)
@@ -109,9 +109,9 @@ struct List * List_previous(struct List* list, int index)
     return current;
 }
 
-struct List * List_next_search(struct List* list, void * var)
+List * List_next_search(List* list, void * var)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0;; i++) 
     {
         if (!current)
@@ -134,9 +134,9 @@ struct List * List_next_search(struct List* list, void * var)
     return current;
 }
 
-struct List * List_previous_search(struct List* list, void * var)
+List * List_previous_search(List* list, void * var)
 {
-    struct List * current = list;
+    List * current = list;
     for (int i = 0;; i++) 
     {
         if (!current)
@@ -159,7 +159,7 @@ struct List * List_previous_search(struct List* list, void * var)
     return current;
 }
 
-struct List * List_search(struct List * list, void * var)
+List * List_search(List * list, void * var)
 {
     if (List_previous_search(list, var))
         return List_previous_search(list, var);

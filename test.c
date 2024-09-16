@@ -6,7 +6,7 @@
 
 int main()
 {
-    struct List * list = List_create();
+    List * list = List_create();
     char variable[10];
 
     strncpy(variable, "Hello wor\0", 10);
@@ -20,7 +20,7 @@ int main()
 
     List_new_next(list, variable_2);
 
-    struct List * next = list->next;
+    List * next = list->next;
 
     if (next)
     {
@@ -63,7 +63,7 @@ int main()
         printf("5 = %ld\n", *(long *)(List_search(list, variable_3)->var));
         assert(5 == *(long *)(List_search(list, variable_3)->var));
     }
-    struct List * list2 = list->next;
+    List * list2 = list->next;
     List_delete(list);
     list = NULL;
     if (List_search(list2, variable_3))
